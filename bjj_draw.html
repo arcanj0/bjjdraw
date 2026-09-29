@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>BJJ Blue Belt Exam — Technique Draw</title>
+
+  <!-- Draw requirements from the provided examination specification. :contentReference[oaicite:0]{index=0} -->
+
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --surface-soft: #f8fafb;
+      --text: #17212b;
+      --text-soft: #5c6975;
+      --border: #dce2e7;
+      --border-strong: #c8d0d7;
+      --shadow: 0 8px 28px rgba(28, 39, 49, 0.07);
+      --shadow-hover: 0 12px 32px rgba(28, 39, 49, 0.11);
+
+      --self-defense: #D99BC1;
+      --sweeps: #74C477;
+      --guard-passing: #67B9DF;
+      --half-guard: #F3D25A;
+      --takedown: #4CA99F;
+      --guard-attacks: #EBA05B;
+
+      --primary: #162832;
+      --primary-hover: #223b49;
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 9px;
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          rgba(103, 185, 223, 0.10),
+          transparent 36rem
+        ),
+        var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button,
+    [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .app-shell {
+      width: min(1500px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: clamp(26px, 4vw, 56px) 0 42px;
+    }
+
+    .app-header {
+      text-align: center;
+      margin-bottom: clamp(28px, 4vw, 46px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-weight: 850;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      font-size: clamp(1.2rem, 2.1vw, 1.75rem);
+      font-weight: 650;
+      color: #37444f;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin: 12px auto 0;
+      color: var(--text-soft);
+      font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+    }
+
+    .rule-summary {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 7px 15px;
+      margin-top: 16px;
+      color: #55616d;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .rule-summary span {
+      white-space: nowrap;
+    }
+
+    .rule-summary span:not(:last-child)::after {
+      content: "•";
+      margin-left: 15px;
+      color: #9ba5ad;
+    }
+
+    .action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .primary-button {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      min-height: 58px;
+      padding: 15px clamp(28px, 5vw, 54px);
+      background: var(--primary);
+      color: #fff;
+      font-weight: 850;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      letter-spacing: 0.045em;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(22, 40, 50, 0.18);
+      transition:
+        transform 150ms ease,
+        box-shadow 150ms ease,
+        background 150ms ease;
+    }
+
+    .primary-button:hover:not(:disabled) {
+      background: var(--primary-hover);
+      box-shadow: 0 11px 26px rgba(22, 40, 50, 0.23);
+      transform: translateY(-1px);
+    }
+
+    .primary-button:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .primary-button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .helper-text {
+      color: #7a858e;
+      font-size: 0.79rem;
+      margin: 0;
+    }
+
+    .status {
+      min-height: 24px;
+      margin: 0;
+      color: #53606b;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .status.error {
+      color: #9e2431;
+    }
+
+    .shuffle-panel {
+      width: min(760px, 100%);
+      margin: 4px auto 28px;
+      padding: clamp(20px, 4vw, 32px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .shuffle-title {
+      margin: 0 0 13px;
+      color: #4f5e69;
+      font-size: 0.83rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .shuffle-number {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 4.2rem);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .shuffle-description {
+      min-height: 48px;
+      max-width: 620px;
+      margin: 12px auto 0;
+      color: #5f6d77;
+      font-size: clamp(0.88rem, 1.3vw, 1rem);
+    }
+
+    .results-section {
+      margin-top: 8px;
+    }
+
+    .results-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin: 0 2px 16px;
+      padding: 0 3px;
+    }
+
+    .results-heading {
+      margin: 0;
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 850;
+      color: #43505b;
+    }
+
+    .draw-time {
+      margin: 0;
+      color: #68747e;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .technique-grid {
+      display: grid;
+      gap: clamp(14px, 1.5vw, 22px);
+    }
+
+    .technique-card {
+      --category-color: #bbb;
+
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 245px;
+      overflow: hidden;
+
+      padding:
+        clamp(19px, 2.2vw, 30px)
+        clamp(18px, 2.2vw, 28px)
+        clamp(20px, 2.4vw, 30px)
+        clamp(25px, 2.7vw, 34px);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+
+      opacity: 0;
+      transform: translateY(13px) scale(0.986);
+
+      transition:
+        opacity 310ms ease,
+        transform 310ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .technique-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: var(--category-color);
+    }
+
+    .technique-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .technique-card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .exam-slot {
+      margin: 0;
+      color: #707b84;
+      font-size: 0.73rem;
+      font-weight: 850;
+      letter-spacing: 0.115em;
+      text-transform: uppercase;
+    }
+
+    .curriculum-number {
+      margin: 0;
+      color: #293741;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      line-height: 1;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.025em;
+    }
+
+    .technique-description {
+      flex: 1;
+      margin: 0 0 22px;
+      color: #15212a;
+      font-size: clamp(1.08rem, 1.35vw, 1.4rem);
+      line-height: 1.39;
+      font-weight: 720;
+      letter-spacing: -0.016em;
+      text-wrap: pretty;
+    }
+
+    .category-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      max-width: 100%;
+      min-height: 30px;
+      padding: 6px 10px;
+
+      border: 1px solid rgba(31, 43, 51, 0.09);
+      border-radius: 999px;
+
+      background: color-mix(
+        in srgb,
+        var(--category-color) 28%,
+        white
+      );
+
+      color: #27333d;
+      font-size: 0.7rem;
+      font-weight: 850;
+      line-height: 1.2;
+      letter-spacing: 0.075em;
+      text-transform: uppercase;
+    }
+
+    .category-badge::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--category-color);
+    }
+
+    .secondary-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      margin: 26px auto 0;
+    }
+
+    .secondary-button {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      min-height: 42px;
+      padding: 9px 15px;
+      background: #fff;
+      color: #33414c;
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+    }
+
+    .secondary-button:hover:not(:disabled) {
+      background: #f8fafb;
+      border-color: #aab4bc;
+      transform: translateY(-1px);
+    }
+
+    .secondary-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .distribution {
+      margin: clamp(30px, 4vw, 48px) auto 0;
+      padding: clamp(20px, 3vw, 28px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .section-label {
+      margin: 0 0 18px;
+      color: #3f4c56;
+      font-size: 0.79rem;
+      font-weight: 900;
+      letter-spacing: 0.115em;
+      text-transform: uppercase;
+    }
+
+    .distribution-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .distribution-item {
+      --category-color: #bbb;
+
+      display: flex;
+      align-items: center;
+      min-height: 47px;
+      gap: 10px;
+      padding: 9px 12px;
+      border: 1px solid #e2e7eb;
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    .distribution-marker {
+      width: 11px;
+      height: 11px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--category-color);
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--category-color) 20%, transparent);
+    }
+
+    .distribution-name {
+      flex: 1;
+      color: #35424c;
+      font-size: 0.87rem;
+      font-weight: 690;
+    }
+
+    .distribution-count {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      background: color-mix(
+        in srgb,
+        var(--category-color) 25%,
+        white
+      );
+      color: #243139;
+      font-size: 0.88rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .legend-section {
+      margin-top: clamp(36px, 5vw, 60px);
+      padding-top: 26px;
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px 20px;
+    }
+
+    .legend-item {
+      --category-color: #bbb;
+
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 10px;
+      padding: 7px 0;
+      color: #64707a;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .legend-swatch {
+      width: 21px;
+      height: 12px;
+      flex: 0 0 auto;
+      border-radius: 4px;
+      background: var(--category-color);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .legend-color-name {
+      color: #37444e;
+      font-weight: 800;
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(65, 125, 162, 0.34);
+      outline-offset: 3px;
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    @media (min-width: 1100px) {
+      .technique-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .technique-card {
+        grid-column: span 2;
+      }
+
+      .technique-card:nth-child(4) {
+        grid-column: 2 / span 2;
+      }
+
+      .technique-card:nth-child(5) {
+        grid-column: 4 / span 2;
+      }
+    }
+
+    @media (min-width: 680px) and (max-width: 1099px) {
+      .technique-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .technique-card:nth-child(5) {
+        grid-column: 1 / -1;
+        width: min(660px, 100%);
+        justify-self: center;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app-shell {
+        width: min(100% - 22px, 1500px);
+        padding-top: 24px;
+      }
+
+      .rule-summary {
+        display: block;
+        line-height: 1.8;
+      }
+
+      .rule-summary span {
+        display: block;
+      }
+
+      .rule-summary span:not(:last-child)::after {
+        content: "";
+        margin: 0;
+      }
+
+      .results-meta {
+        display: block;
+      }
+
+      .draw-time {
+        margin-top: 5px;
+        text-align: left;
+      }
+
+      .legend-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 679px) {
+      .technique-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .technique-card {
+        min-height: 0;
+      }
+
+      .secondary-controls {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+      }
+
+      .secondary-button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .legend-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .distribution-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .technique-card {
+        transform: none;
+      }
+
+      .primary-button:hover:not(:disabled),
+      .secondary-button:hover:not(:disabled) {
+        transform: none;
+      }
+    }
+
+    @media print {
+      @page {
+        margin: 11mm;
+      }
+
+      html,
+      body {
+        background: #fff !important;
+      }
+
+      body {
+        color: #000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10.5pt;
+      }
+
+      .app-shell {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .app-header {
+        margin-bottom: 7mm;
+        text-align: left;
+      }
+
+      .eyebrow,
+      .intro,
+      .rule-summary,
+      .action-area,
+      .shuffle-panel,
+      .secondary-controls,
+      .legend-section {
+        display: none !important;
+      }
+
+      h1 {
+        color: #000;
+        font-size: 23pt;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin-top: 2mm;
+        color: #222;
+        font-size: 14pt;
+      }
+
+      .results-section {
+        margin: 0;
+      }
+
+      .results-meta {
+        display: block;
+        margin: 0 0 5mm;
+        padding: 0;
+      }
+
+      .results-heading {
+        display: none;
+      }
+
+      .draw-time {
+        margin: 0;
+        color: #333;
+        font-size: 9.5pt;
+        text-align: left;
+      }
+
+      .technique-grid {
+        display: block;
+      }
+
+      .technique-card,
+      .technique-card:nth-child(4),
+      .technique-card:nth-child(5) {
+        display: block;
+        width: 100%;
+        min-height: 0;
+        margin: 0 0 4mm;
+        padding: 4mm 5mm 4mm 7mm;
+
+        opacity: 1 !important;
+        transform: none !important;
+        box-shadow: none !important;
+
+        border: 1px solid #777;
+        border-left: 4px solid #444;
+        border-radius: 3mm;
+
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .technique-card::before {
+        display: none;
+      }
+
+      .card-topline {
+        margin-bottom: 2mm;
+      }
+
+      .exam-slot {
+        color: #333;
+        font-size: 8.5pt;
+      }
+
+      .curriculum-number {
+        color: #000;
+        font-size: 13pt;
+      }
+
+      .technique-description {
+        margin: 0 0 3mm;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .category-badge {
+        min-height: 0;
+        padding: 1.2mm 2.4mm;
+        border: 1px solid #777;
+        background: #fff !important;
+        color: #000;
+        font-size: 7.5pt;
+      }
+
+      .category-badge::before {
+        background: #555 !important;
+      }
+
+      .distribution {
+        margin: 6mm 0 0;
+        padding: 4mm;
+        border: 1px solid #888;
+        background: #fff;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .section-label {
+        margin-bottom: 2.5mm;
+        color: #000;
+        font-size: 9pt;
+      }
+
+      .distribution-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5mm 5mm;
+      }
+
+      .distribution-item {
+        min-height: 0;
+        padding: 1mm 0;
+        border: 0;
+        background: transparent;
+      }
+
+      .distribution-marker {
+        width: 8px;
+        height: 8px;
+        background: #555 !important;
+        box-shadow: none;
+      }
+
+      .distribution-name,
+      .distribution-count {
+        color: #000;
+        font-size: 8.5pt;
+      }
+
+      .distribution-count {
+        width: auto;
+        height: auto;
+        padding: 0;
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell" id="app">
+    <header class="app-header">
+      <div class="eyebrow">Examination Tool</div>
+
+      <h1>BJJ BLUE BELT EXAM</h1>
+      <p class="subtitle">Technique Draw</p>
+
+      <p class="intro">
+        Randomly draw 5 techniques from the 30-technique examination list.
+      </p>
+
+      <div class="rule-summary" aria-label="Draw rules">
+        <span>5 techniques</span>
+        <span>At least 4 categories</span>
+        <span>Maximum 2 from one category</span>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="action-area"
+        aria-label="Exam draw controls"
+      >
+        <button
+          class="primary-button"
+          id="drawButton"
+          type="button"
+        >
+          DRAW 5 TECHNIQUES
+        </button>
+
+        <p class="helper-text">
+          Press SPACE to draw
+        </p>
+
+        <p
+          class="status"
+          id="status"
+          role="status"
+          aria-live="polite"
+        ></p>
+      </section>
+
+      <section
+        class="shuffle-panel"
+        id="shufflePanel"
+        aria-hidden="true"
+        hidden
+      >
+        <p class="shuffle-title">Drawing...</p>
+        <p class="shuffle-number" id="shuffleNumber">#1</p>
+        <p
+          class="shuffle-description"
+          id="shuffleDescription"
+        >
+          Selecting techniques…
+        </p>
+      </section>
+
+      <section
+        class="results-section"
+        id="resultsSection"
+        aria-labelledby="resultsHeading"
+        aria-live="polite"
+        aria-busy="false"
+        hidden
+      >
+        <div class="results-meta">
+          <h2
+            class="results-heading"
+            id="resultsHeading"
+          >
+            Selected Techniques
+          </h2>
+
+          <p
+            class="draw-time"
+            id="drawTime"
+          ></p>
+        </div>
+
+        <div
+          class="technique-grid"
+          id="techniqueGrid"
+        ></div>
+
+        <div
+          class="secondary-controls"
+          id="secondaryControls"
+        >
+          <button
+            class="secondary-button"
+            id="clearButton"
+            type="button"
+          >
+            Clear
+          </button>
+
+          <button
+            class="secondary-button"
+            id="printButton"
+            type="button"
+          >
+            Print Exam
+          </button>
+
+          <button
+            class="secondary-button"
+            id="fullscreenButton"
+            type="button"
+          >
+            Full Screen
+          </button>
+        </div>
+
+        <section
+          class="distribution"
+          id="distributionSection"
+          aria-labelledby="distributionHeading"
+        >
+          <h2
+            class="section-label"
+            id="distributionHeading"
+          >
+            Exam Distribution
+          </h2>
+
+          <ul
+            class="distribution-list"
+            id="distributionList"
+          ></ul>
+        </section>
+      </section>
+    </main>
+
+    <footer class="legend-section">
+      <h2 class="section-label">Colour Legend</h2>
+
+      <div class="legend-grid">
+        <div
+          class="legend-item"
+          style="--category-color: var(--self-defense)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Pink:</span>
+            Self-defense
+          </span>
+        </div>
+
+        <div
+          class="legend-item"
+          style="--category-color: var(--sweeps)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Green:</span>
+            Sweeps
+          </span>
+        </div>
+
+        <div
+          class="legend-item"
+          style="--category-color: var(--guard-passing)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Blue:</span>
+            Guard passing
+          </span>
+        </div>
+
+        <div
+          class="legend-item"
+          style="--category-color: var(--half-guard)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Yellow:</span>
+            Half guard
+          </span>
+        </div>
+
+        <div
+          class="legend-item"
+          style="--category-color: var(--takedown)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Blue-green:</span>
+            Takedown / submission
+          </span>
+        </div>
+
+        <div
+          class="legend-item"
+          style="--category-color: var(--guard-attacks)"
+        >
+          <span
+            class="legend-swatch"
+            aria-hidden="true"
+          ></span>
+          <span>
+            <span class="legend-color-name">Orange:</span>
+            Guard attacks / transitions
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    "use strict";
+
+    const techniques = [
+      {
+        id: 1,
+        name: "Self-defense against a lateral punch with a takedown (Osoto Gari), finishing with Knee-on-Belly.",
+        category: "Self-defense"
+      },
+      {
+        id: 2,
+        name: "Scissor sweep, finishing with an armbar from the mount.",
+        category: "Sweeps"
+      },
+      {
+        id: 3,
+        name: "De La Riva sweep transitioning to the back, finishing with the Bow-and-Arrow choke.",
+        category: "Sweeps"
+      },
+      {
+        id: 4,
+        name: "Spider guard push sweep, finishing with a cross choke from mount.",
+        category: "Sweeps"
+      },
+      {
+        id: 5,
+        name: "Standing guard pass, transitioning into a straight foot lock (botinha).",
+        category: "Guard passing"
+      },
+      {
+        id: 6,
+        name: "Standing guard pass to side control, finishing with an Ezekiel choke.",
+        category: "Guard passing"
+      },
+      {
+        id: 7,
+        name: "Scissor sweep kicking the knee, finishing with an Americana lock from mount.",
+        category: "Sweeps"
+      },
+      {
+        id: 8,
+        name: "From spider guard, transition to omoplata, sweep the opponent, establish Knee-on-Belly, and finish with the violin-lock (armbar variation).",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 9,
+        name: "From deep half guard, execute the flower sweep, land in side control, and finish with a Kimura.",
+        category: "Half guard"
+      },
+      {
+        id: 10,
+        name: "Single-leg takedown to side control, finishing with a lapel choke.",
+        category: "Takedown / submission"
+      },
+      {
+        id: 11,
+        name: "Double-leg takedown (\"queda baiana\"), side control, Knee-on-Belly, finishing with an armbar.",
+        category: "Takedown / submission"
+      },
+      {
+        id: 12,
+        name: "Self-defense: escaping a rear bear hug under arms.",
+        category: "Self-defense"
+      },
+      {
+        id: 13,
+        name: "While passing guard, the opponent makes turtle position, and you finish with the clock choke.",
+        category: "Guard passing"
+      },
+      {
+        id: 14,
+        name: "From De La Riva sweep, transition to the back and finish with an armbar.",
+        category: "Sweeps"
+      },
+      {
+        id: 15,
+        name: "From open guard, apply the hook sweep, mount, and finish with an Ezekiel choke.",
+        category: "Sweeps"
+      },
+      {
+        id: 16,
+        name: "From mount, transition to the back and finish with a Rear Naked Choke.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 17,
+        name: "Toreando guard pass, side control, Knee-on-Belly, finishing with a lapel choke.",
+        category: "Guard passing"
+      },
+      {
+        id: 18,
+        name: "From half guard, sweep, knee-cut pass, and finish in side control.",
+        category: "Half guard"
+      },
+      {
+        id: 19,
+        name: "Pull guard with foot on the hip, finishing with an armbar.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 20,
+        name: "From closed guard, apply an armbar and transition to a triangle.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 21,
+        name: "Self-defense: escaping a front bear hug under arms.",
+        category: "Self-defense"
+      },
+      {
+        id: 22,
+        name: "Self-defense: escape from a standing headlock (\"bouncer's headlock\").",
+        category: "Self-defense"
+      },
+      {
+        id: 23,
+        name: "Self-defense: escape from a two-hand throat choke against the wall.",
+        category: "Self-defense"
+      },
+      {
+        id: 24,
+        name: "Pull guard with foot on the hip, transition, and finish with an omoplata.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 25,
+        name: "From closed guard, apply the Kimura lock.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 26,
+        name: "From lasso guard, apply the flower sweep, mount, and finish with a mounted triangle.",
+        category: "Sweeps"
+      },
+      {
+        id: 27,
+        name: "From butterfly guard, apply the loop-choke.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 28,
+        name: "From De La Riva, grip the lapel, kick the knee, and sweep forward.",
+        category: "Sweeps"
+      },
+      {
+        id: 29,
+        name: "From closed guard, apply an arm drag, take the back, and finish with a Rear Naked Choke.",
+        category: "Guard attacks / transitions"
+      },
+      {
+        id: 30,
+        name: "From closed guard, apply an arm drag, transition to turtle-side control, and finish with the clock choke.",
+        category: "Guard attacks / transitions"
+      }
+    ];
+
+    const categoryColors = {
+      "Self-defense": "#D99BC1",
+      "Sweeps": "#74C477",
+      "Guard passing": "#67B9DF",
+      "Half guard": "#F3D25A",
+      "Takedown / submission": "#4CA99F",
+      "Guard attacks / transitions": "#EBA05B"
+    };
+
+    const categoryOrder = [
+      "Self-defense",
+      "Sweeps",
+      "Guard passing",
+      "Half guard",
+      "Takedown / submission",
+      "Guard attacks / transitions"
+    ];
+
+    const drawButton = document.getElementById("drawButton");
+    const clearButton = document.getElementById("clearButton");
+    const printButton = document.getElementById("printButton");
+    const fullscreenButton =
+      document.getElementById("fullscreenButton");
+
+    const statusElement = document.getElementById("status");
+    const shufflePanel = document.getElementById("shufflePanel");
+    const shuffleNumber = document.getElementById("shuffleNumber");
+    const shuffleDescription =
+      document.getElementById("shuffleDescription");
+
+    const resultsSection =
+      document.getElementById("resultsSection");
+    const techniqueGrid =
+      document.getElementById("techniqueGrid");
+    const drawTimeElement =
+      document.getElementById("drawTime");
+    const distributionSection =
+      document.getElementById("distributionSection");
+    const distributionList =
+      document.getElementById("distributionList");
+
+    const reducedMotionQuery =
+      window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let currentDraw = [];
+    let currentDrawTime = null;
+    let isDrawing = false;
+
+    /**
+     * Returns an unbiased random integer from 0 through max - 1.
+     *
+     * crypto.getRandomValues() is preferred. Rejection sampling
+     * avoids modulo bias. Math.random() is used only as a fallback.
+     */
+    function getRandomInt(max) {
+      if (!Number.isInteger(max) || max <= 0) {
+        throw new RangeError(
+          "getRandomInt requires a positive integer."
+        );
+      }
+
+      if (
+        window.crypto &&
+        typeof window.crypto.getRandomValues === "function"
+      ) {
+        const randomArray = new Uint32Array(1);
+        const range = 0x100000000;
+        const limit = Math.floor(range / max) * max;
+
+        let value;
+
+        do {
+          window.crypto.getRandomValues(randomArray);
+          value = randomArray[0];
+        } while (value >= limit);
+
+        return value % max;
+      }
+
+      return Math.floor(Math.random() * max);
+    }
+
+    /**
+     * Proper Fisher-Yates shuffle.
+     * The supplied array is shuffled in place and returned.
+     */
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i -= 1) {
+        const j = getRandomInt(i + 1);
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+
+      return array;
+    }
+
+    /**
+     * Treat all 30 techniques as the primary random population.
+     * Categories are not chosen first.
+     */
+    function generateCandidateDraw() {
+      const shuffled = shuffleArray([...techniques]);
+      return shuffled.slice(0, 5);
+    }
+
+    /**
+     * Explicitly validates every examination requirement:
+     * - exactly 5 techniques
+     * - unique IDs
+     * - maximum 2 techniques from a category
+     * - at least 4 distinct categories
+     */
+    function isValidDraw(draw) {
+      if (!Array.isArray(draw) || draw.length !== 5) {
+        return false;
+      }
+
+      const uniqueIds = new Set(
+        draw.map((technique) => technique.id)
+      );
+
+      if (uniqueIds.size !== 5) {
+        return false;
+      }
+
+      const counts = {};
+
+      draw.forEach((technique) => {
+        counts[technique.category] =
+          (counts[technique.category] || 0) + 1;
+      });
+
+      const categoryCounts = Object.values(counts);
+      const maxCategoryCount = Math.max(...categoryCounts);
+
+      if (maxCategoryCount > 2) {
+        return false;
+      }
+
+      const distinctCategories =
+        Object.keys(counts).length;
+
+      if (distinctCategories < 4) {
+        return false;
+      }
+
+      return true;
+    }
+
+    /**
+     * Rejection sampling:
+     * repeatedly creates a random five-technique candidate from
+     * the complete technique pool until the diversity rules pass.
+     */
+    function generateDraw() {
+      const maxAttempts = 10000;
+
+      for (
+        let attempt = 1;
+        attempt <= maxAttempts;
+        attempt += 1
+      ) {
+        const candidate = generateCandidateDraw();
+
+        if (isValidDraw(candidate)) {
+          return candidate;
+        }
+      }
+
+      throw new Error(
+        "Unable to generate a valid exam draw after 10,000 attempts."
+      );
+    }
+
+    function delay(milliseconds) {
+      return new Promise((resolve) => {
+        window.setTimeout(resolve, milliseconds);
+      });
+    }
+
+    function setControlsDisabled(disabled) {
+      drawButton.disabled = disabled;
+      clearButton.disabled = disabled;
+      printButton.disabled = disabled;
+      fullscreenButton.disabled = disabled;
+    }
+
+    /**
+     * Visual-only shuffle animation.
+     * The actual final draw is calculated before this starts.
+     */
+    async function animateDraw() {
+      const reducedMotion = reducedMotionQuery.matches;
+
+      statusElement.classList.remove("error");
+      statusElement.textContent = "Drawing…";
+
+      if (reducedMotion) {
+        return;
+      }
+
+      shufflePanel.hidden = false;
+
+      const animationDuration = 1150;
+      const cycleInterval = 68;
+      const startTime = performance.now();
+
+      await new Promise((resolve) => {
+        const intervalId = window.setInterval(() => {
+          const randomTechnique =
+            techniques[getRandomInt(techniques.length)];
+
+          shuffleNumber.textContent =
+            `#${randomTechnique.id}`;
+
+          shuffleDescription.textContent =
+            randomTechnique.name;
+
+          if (
+            performance.now() - startTime >=
+            animationDuration
+          ) {
+            window.clearInterval(intervalId);
+            resolve();
+          }
+        }, cycleInterval);
+      });
+
+      shufflePanel.hidden = true;
+    }
+
+    function createTechniqueCard(technique, slotNumber) {
+      const article = document.createElement("article");
+
+      article.className = "technique-card";
+      article.style.setProperty(
+        "--category-color",
+        categoryColors[technique.category]
+      );
+
+      article.setAttribute(
+        "aria-label",
+        `Technique ${slotNumber}: number ${technique.id}. ${technique.name}. Category: ${technique.category}.`
+      );
+
+      const topLine = document.createElement("div");
+      topLine.className = "card-topline";
+
+      const slot = document.createElement("p");
+      slot.className = "exam-slot";
+      slot.textContent = `Technique ${slotNumber}`;
+
+      const number = document.createElement("p");
+      number.className = "curriculum-number";
+      number.textContent = `#${technique.id}`;
+
+      topLine.append(slot, number);
+
+      const description = document.createElement("p");
+      description.className = "technique-description";
+      description.textContent = technique.name;
+
+      const category = document.createElement("div");
+      category.className = "category-badge";
+      category.textContent = technique.category;
+
+      article.append(
+        topLine,
+        description,
+        category
+      );
+
+      return article;
+    }
+
+    async function renderDraw(draw) {
+      techniqueGrid.replaceChildren();
+      resultsSection.hidden = false;
+      resultsSection.setAttribute("aria-busy", "true");
+
+      const reducedMotion = reducedMotionQuery.matches;
+
+      for (
+        let index = 0;
+        index < draw.length;
+        index += 1
+      ) {
+        const technique = draw[index];
+        const card =
+          createTechniqueCard(technique, index + 1);
+
+        techniqueGrid.appendChild(card);
+
+        if (reducedMotion) {
+          card.classList.add("is-visible");
+          continue;
+        }
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.classList.add("is-visible");
+          });
+        });
+
+        if (index < draw.length - 1) {
+          await delay(105);
+        }
+      }
+
+      resultsSection.setAttribute("aria-busy", "false");
+    }
+
+    function renderDistribution(draw) {
+      const counts = new Map();
+
+      draw.forEach((technique) => {
+        counts.set(
+          technique.category,
+          (counts.get(technique.category) || 0) + 1
+        );
+      });
+
+      distributionList.replaceChildren();
+
+      categoryOrder.forEach((categoryName) => {
+        const count = counts.get(categoryName);
+
+        if (!count) {
+          return;
+        }
+
+        const item = document.createElement("li");
+        item.className = "distribution-item";
+        item.style.setProperty(
+          "--category-color",
+          categoryColors[categoryName]
+        );
+
+        const marker = document.createElement("span");
+        marker.className = "distribution-marker";
+        marker.setAttribute("aria-hidden", "true");
+
+        const name = document.createElement("span");
+        name.className = "distribution-name";
+        name.textContent = categoryName;
+
+        const countElement = document.createElement("span");
+        countElement.className = "distribution-count";
+        countElement.textContent = String(count);
+        countElement.setAttribute(
+          "aria-label",
+          `${count} technique${count === 1 ? "" : "s"}`
+        );
+
+        item.append(
+          marker,
+          name,
+          countElement
+        );
+
+        distributionList.appendChild(item);
+      });
+
+      distributionSection.hidden = false;
+    }
+
+    function formatDrawDate(date) {
+      const formattedDate =
+        new Intl.DateTimeFormat(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }).format(date);
+
+      const formattedTime =
+        new Intl.DateTimeFormat(undefined, {
+          hour: "numeric",
+          minute: "2-digit"
+        }).format(date);
+
+      return `Drawn: ${formattedDate} at ${formattedTime}`;
+    }
+
+    async function performDraw() {
+      if (isDrawing) {
+        return;
+      }
+
+      isDrawing = true;
+      setControlsDisabled(true);
+
+      statusElement.classList.remove("error");
+      techniqueGrid.replaceChildren();
+      distributionList.replaceChildren();
+      resultsSection.hidden = true;
+
+      let finalDraw;
+
+      try {
+        /*
+         * IMPORTANT:
+         * The final result is generated before animation begins.
+         * Animation is purely visual and cannot affect the draw.
+         */
+        finalDraw = generateDraw();
+        currentDrawTime = new Date();
+
+        await animateDraw();
+
+        currentDraw = finalDraw;
+
+        drawTimeElement.textContent =
+          formatDrawDate(currentDrawTime);
+
+        await renderDraw(currentDraw);
+        renderDistribution(currentDraw);
+
+        drawButton.textContent = "DRAW AGAIN";
+        statusElement.textContent = "Draw complete.";
+      } catch (error) {
+        currentDraw = [];
+        currentDrawTime = null;
+
+        shufflePanel.hidden = true;
+        resultsSection.hidden = true;
+
+        drawButton.textContent =
+          "DRAW 5 TECHNIQUES";
+
+        statusElement.classList.add("error");
+        statusElement.textContent =
+          "A valid exam draw could not be generated. Please try again.";
+      } finally {
+        isDrawing = false;
+        setControlsDisabled(false);
+      }
+    }
+
+    function clearDraw() {
+      if (isDrawing) {
+        return;
+      }
+
+      currentDraw = [];
+      currentDrawTime = null;
+
+      techniqueGrid.replaceChildren();
+      distributionList.replaceChildren();
+
+      resultsSection.hidden = true;
+      shufflePanel.hidden = true;
+
+      drawTimeElement.textContent = "";
+      statusElement.textContent = "";
+      statusElement.classList.remove("error");
+
+      drawButton.textContent =
+        "DRAW 5 TECHNIQUES";
+
+      drawButton.focus();
+    }
+
+    function isFullscreenActive() {
+      return Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement
+      );
+    }
+
+    function updateFullscreenButton() {
+      fullscreenButton.textContent =
+        isFullscreenActive()
+          ? "EXIT FULL SCREEN"
+          : "FULL SCREEN";
+    }
+
+    async function toggleFullscreen() {
+      const app = document.documentElement;
+
+      try {
+        if (!isFullscreenActive()) {
+          if (typeof app.requestFullscreen === "function") {
+            await app.requestFullscreen();
+          } else if (
+            typeof app.webkitRequestFullscreen === "function"
+          ) {
+            app.webkitRequestFullscreen();
+          } else {
+            statusElement.textContent =
+              "Full-screen mode is not available in this browser.";
+            return;
+          }
+        } else if (
+          typeof document.exitFullscreen === "function"
+        ) {
+          await document.exitFullscreen();
+        } else if (
+          typeof document.webkitExitFullscreen === "function"
+        ) {
+          document.webkitExitFullscreen();
+        }
+
+        updateFullscreenButton();
+      } catch (error) {
+        statusElement.textContent =
+          "Full-screen mode could not be started.";
+      }
+    }
+
+    function printExam() {
+      if (currentDraw.length !== 5) {
+        return;
+      }
+
+      window.print();
+    }
+
+    drawButton.addEventListener(
+      "click",
+      performDraw
+    );
+
+    clearButton.addEventListener(
+      "click",
+      clearDraw
+    );
+
+    printButton.addEventListener(
+      "click",
+      printExam
+    );
+
+    fullscreenButton.addEventListener(
+      "click",
+      toggleFullscreen
+    );
+
+    document.addEventListener(
+      "fullscreenchange",
+      updateFullscreenButton
+    );
+
+    document.addEventListener(
+      "webkitfullscreenchange",
+      updateFullscreenButton
+    );
+
+    /*
+     * Instructor shortcut:
+     * Space draws only when focus is not inside another
+     * interactive control or editable element.
+     */
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.code !== "Space" ||
+        event.repeat ||
+        isDrawing
+      ) {
+        return;
+      }
+
+      const active = document.activeElement;
+
+      const activeIsInteractive =
+        active &&
+        (
+          active.matches(
+            "button, input, select, textarea, a[href]"
+          ) ||
+          active.isContentEditable
+        );
+
+      if (activeIsInteractive) {
+        return;
+      }
+
+      event.preventDefault();
+      performDraw();
+    });
+  </script>
+</body>
+</html>
